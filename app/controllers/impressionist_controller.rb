@@ -12,11 +12,11 @@ module ImpressionistController
       base.before_filter :impressionist_app_filter
     end
 
-    def impressionist(obj,message=nil,opts={})
+    def impressionist(obj,fields={},opts={})
       unless bypass
         if obj.respond_to?("impressionable?")
           if unique_instance?(obj, opts[:unique])
-            obj.impressions.create(associative_create_statement({:message => message}))
+            obj.impressions.create(associative_create_statement(fields))
           end
         else
           # we could create an impression anyway. for classes, too. why not?
